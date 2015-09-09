@@ -7,4 +7,6 @@ apt-get update
 sudo apt-get install -y unzip python-pip python-dev
 sudo pip install ansible
 
+chmod 600 /home/vagrant/.ssh/id_rsa
+
 #ansible-playbook -i ansible/hosts-dev ansible/playbook.yml
