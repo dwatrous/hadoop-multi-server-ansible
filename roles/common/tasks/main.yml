@@ -1,0 +1,5 @@
+---
+- group: name={{ hadoop_group}} state=present
+- user: name={{ hadoop_user }} comment="Hadoop" group={{ hadoop_group}}
+
+- authorized_key: user={{ hadoop_user }} key="{{ lookup('file', '/home/vagrant/src/roles/common/templates/hadoop_rsa.pub') }}"
