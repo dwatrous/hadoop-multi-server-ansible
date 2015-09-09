@@ -1,0 +1,8 @@
+---
+- name: Install Hadoop Master, Nginx, and bottlepy
+  hosts: hadoop-master
+  remote_user: ubuntu
+  sudo: yes
+
+  roles:
+    - oraclejava8
