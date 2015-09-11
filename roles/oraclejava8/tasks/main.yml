@@ -8,3 +8,5 @@
 
 - name: Install Java
   apt: pkg=oracle-java8-installer state=installed update_cache=true
+
+- lineinfile: dest=/home/hadoop/.bashrc regexp=JAVA_HOME= line="export JAVA_HOME=/usr/lib/jvm/java-8-oracle"
