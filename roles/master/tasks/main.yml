@@ -1,0 +1,6 @@
+---
+- name: Copy private key into place
+  template: src=hadoop_rsa dest=/home/{{ hadoop_user }}/.ssh/id_rsa owner={{ hadoop_user }} group={{ hadoop_group}} mode=0600
+
+- name: Copy slaves into place
+  template: src=slaves dest=/usr/local/hadoop/etc/hadoop/slaves owner={{ hadoop_user }} group={{ hadoop_group}}
