@@ -5,8 +5,8 @@
   sudo: yes
 
   roles:
-    - oraclejava8
     - common
+    - oraclejava8
     - master
 
 - name: Install hadoop data nodes
@@ -15,6 +15,6 @@
   sudo: yes
 
   roles:
-    - oraclejava8
     - common
+    - oraclejava8
 #    - data
