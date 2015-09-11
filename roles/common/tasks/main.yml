@@ -1,5 +1,25 @@
 ---
 - group: name={{ hadoop_group}} state=present
-- user: name={{ hadoop_user }} comment="Hadoop" group={{ hadoop_group}}
+- user: name={{ hadoop_user }} comment="Hadoop" group={{ hadoop_group}} shell=/bin/bash
 
 - authorized_key: user={{ hadoop_user }} key="{{ lookup('file', '/home/vagrant/src/roles/common/templates/hadoop_rsa.pub') }}"
+
+- name: unpack hadoop
+  unarchive: src=/home/vagrant/src/roles/common/templates/hadoop-2.7.1.tar.gz dest=/usr/local owner={{ hadoop_user}} group={{ hadoop_group }}
+
+- command: mv /usr/local/hadoop-2.7.1 /usr/local/hadoop creates=/usr/local/hadoop removes=/usr/local/hadoop-2.7.1
+
+- lineinfile: dest=/home/hadoop/.bashrc regexp=HADOOP_HOME= line="export HADOOP_HOME=/usr/local/hadoop"
+- lineinfile: dest=/home/hadoop/.bashrc regexp=PATH= line="export PATH=$PATH:$HADOOP_HOME/bin"
+
+- file: path=/home/{{ hadoop_user }}/tmp state=directory owner={{ hadoop_user}} group={{ hadoop_group }} mode=750
+
+- name: Add the service scripts
+  template: src={{ item.src }} dest={{ item.dest }} owner={{ hadoop_user}} group={{ hadoop_group }}
+  with_items:
+    - {src: "core-site.xml", dest: "/usr/local/hadoop/etc/hadoop/core-site.xml"}
+    - {src: "hdfs-site.xml", dest: "/usr/local/hadoop/etc/hadoop/hdfs-site.xml"}
+#    - {src: "yarn-site.xml", dest: "/usr/local/hadoop/etc/hadoop/yarn-site.xml"}
+    - {src: "mapred-site.xml", dest: "/usr/local/hadoop/etc/hadoop/mapred-site.xml"}
+
+- lineinfile: dest=/usr/local/hadoop/etc/hadoop/hadoop-env.sh regexp="^export JAVA_HOME" line="export JAVA_HOME=/usr/lib/jvm/java-8-oracle"
