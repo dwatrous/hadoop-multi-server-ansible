@@ -3,9 +3,9 @@
 #export https_proxy=https://proxy.company.com:8080
 #export http_proxy=http://proxy.company.com:8080
 
-apt-get update
-sudo apt-get install -y unzip python-pip python-dev
-sudo pip install ansible
+sudo -E apt-get update
+sudo -E apt-get install -y unzip python-pip python-dev
+sudo -E pip install ansible
 
 chmod 600 /home/vagrant/.ssh/id_rsa
 
