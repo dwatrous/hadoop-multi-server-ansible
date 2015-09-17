@@ -1,12 +1,16 @@
 ---
 - apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' state=present
+  environment: proxy_env
 - apt_repository: repo='deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' state=present
+  environment: proxy_env
 
 - debconf: name='oracle-java7-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select' unseen=false
 
 - apt_key: keyserver=keyserver.ubuntu.com id=EEA14886
+  environment: proxy_env
 
 - name: Install Java
   apt: pkg=oracle-java8-installer state=installed update_cache=true
+  environment: proxy_env
 
 - lineinfile: dest=/home/hadoop/.bashrc regexp="^export JAVA_HOME" line="export JAVA_HOME=/usr/lib/jvm/java-8-oracle"
