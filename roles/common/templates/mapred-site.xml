@@ -25,4 +25,8 @@
     and reduce task.
     </description>
   </property>
+  <property>  
+    <name>mapreduce.framework.name</name>  
+    <value>yarn</value>  
+  </property>
 </configuration>
