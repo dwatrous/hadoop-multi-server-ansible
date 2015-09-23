@@ -9,8 +9,9 @@
 
 - command: mv /usr/local/hadoop-2.7.1 /usr/local/hadoop creates=/usr/local/hadoop removes=/usr/local/hadoop-2.7.1
 
-- lineinfile: dest=/home/hadoop/.bashrc regexp=HADOOP_HOME= line="export HADOOP_HOME=/usr/local/hadoop"
-- lineinfile: dest=/home/hadoop/.bashrc regexp=PATH= line="export PATH=$PATH:$HADOOP_HOME/bin"
+- lineinfile: dest=/home/hadoop/.bashrc regexp="HADOOP_HOME=" line="export HADOOP_HOME=/usr/local/hadoop"
+- lineinfile: dest=/home/hadoop/.bashrc regexp="PATH=" line="export PATH=$PATH:$HADOOP_HOME/bin"
+- lineinfile: dest=/home/hadoop/.bashrc regexp="HADOOP_SSH_OPTS=" line="export HADOOP_SSH_OPTS=\"-i /home/{{ hadoop_user }}/.ssh/hadoop_rsa\""
 
 - file: path=/home/{{ hadoop_user }}/tmp state=directory owner={{ hadoop_user}} group={{ hadoop_group }} mode=750
 
