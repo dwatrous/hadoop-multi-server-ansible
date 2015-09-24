@@ -22,7 +22,27 @@
     <value>mapreduce_shuffle</value>
   </property>
   <property>
-    <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
-    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+    <name>yarn.resourcemanager.scheduler.address</name>
+    <value>{{ nodes[0]['hostname'] }}:8030</value>
+  </property> 
+  <property>
+    <name>yarn.resourcemanager.address</name>
+    <value>{{ nodes[0]['hostname'] }}:8032</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.webapp.address</name>
+    <value>{{ nodes[0]['hostname'] }}:8088</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address</name>
+    <value>{{ nodes[0]['hostname'] }}:8031</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.admin.address</name>
+    <value>{{ nodes[0]['hostname'] }}:8033</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.bind-host</name>
+    <value>0.0.0.0</value>
   </property>
 </configuration>

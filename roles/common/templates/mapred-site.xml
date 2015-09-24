@@ -19,7 +19,7 @@
 <configuration>
   <property>
     <name>mapred.job.tracker</name>
-    <value>192.168.51.4:54311</value>
+    <value>{{ nodes[0]['hostname'] }}:54311</value>
     <description>The host and port that the MapReduce job tracker runs
     at.  If "local", then jobs are run in-process as a single map
     and reduce task.

@@ -1,3 +1,3 @@
-192.168.51.4
-192.168.52.4
-192.168.52.6
+{% for host in nodes %}
+{{ host['hostname'] }}
+{% endfor %}
