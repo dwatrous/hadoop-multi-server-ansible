@@ -41,8 +41,4 @@
     <name>yarn.resourcemanager.admin.address</name>
     <value>{{ nodes[0]['hostname'] }}:8033</value>
   </property>
-  <property>
-    <name>yarn.resourcemanager.bind-host</name>
-    <value>0.0.0.0</value>
-  </property>
 </configuration>

@@ -26,18 +26,6 @@
     </description>
   </property>
   <property>
-    <name>dfs.namenode.rpc-bind-host</name>
-    <value>0.0.0.0</value>
-  </property>
-  <!--<property>
-    <name>dfs.namenode.servicerpc-bind-host</name>
-    <value>0.0.0.0</value>
-  </property>-->
-  <property>
-    <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
-    <value>false</value>
-  </property>
-  <property>
    <name>dfs.namenode.name.dir</name>
    <value>/home/{{ hadoop_user }}/hadoop-data/hdfs/namenode</value>
    <description>Determines where on the local filesystem the DFS name node should store the name table(fsimage). If this is a comma-delimited list of directories then the name table is replicated in all of the directories, for redundancy.</description>
