@@ -6,8 +6,8 @@
 PRIVATE_KEY_SOURCE      = 'C:\Users\watrous\.vagrant.d\insecure_private_key'
 PRIVATE_KEY_DESTINATION = '/home/vagrant/.ssh/id_rsa'
 MASTER_IP               = '192.168.51.4'
-DATA1_IP                = '192.168.52.4'
-DATA2_IP                = '192.168.52.6'
+DATA1_IP                = '192.168.51.5'
+DATA2_IP                = '192.168.51.6'
 
 Vagrant.configure("2") do |config|
 

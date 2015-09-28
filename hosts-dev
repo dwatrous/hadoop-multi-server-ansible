@@ -2,5 +2,5 @@
 192.168.51.4              ansible_connection=local
 
 [hadoop-data]
-192.168.52.4              ansible_connection=ssh  ansible_ssh_user=vagrant   ansible_ssh_private_key_file=~/.ssh/id_rsa
-192.168.52.6              ansible_connection=ssh  ansible_ssh_user=vagrant   ansible_ssh_private_key_file=~/.ssh/id_rsa
+192.168.51.5              ansible_connection=ssh  ansible_ssh_user=vagrant   ansible_ssh_private_key_file=~/.ssh/id_rsa
+192.168.51.6              ansible_connection=ssh  ansible_ssh_user=vagrant   ansible_ssh_private_key_file=~/.ssh/id_rsa
