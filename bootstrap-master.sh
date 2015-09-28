@@ -20,6 +20,7 @@ chmod 600 /home/vagrant/.ssh/id_rsa
 #ssh-keyscan -H hadoop-data2 >> ~/.ssh/known_hosts
 #hdfs namenode -format
 #/usr/local/hadoop/sbin/start-dfs.sh
+#hdfs dfsadmin -report
 #/usr/local/hadoop/sbin/start-yarn.sh
 #/usr/local/hadoop/sbin/stop-dfs.sh
 #/usr/local/hadoop/sbin/stop-yarn.sh
