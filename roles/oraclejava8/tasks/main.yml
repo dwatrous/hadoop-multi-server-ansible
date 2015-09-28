@@ -4,7 +4,7 @@
 - apt_repository: repo='deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' state=present
   environment: proxy_env
 
-- debconf: name='oracle-java7-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select' unseen=false
+- debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select' unseen=false
 
 - apt_key: keyserver=keyserver.ubuntu.com id=EEA14886
   environment: proxy_env
