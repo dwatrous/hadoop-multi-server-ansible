@@ -8,10 +8,10 @@ sudo -E apt-get install -y unzip python-pip python-dev
 sudo -E pip install ansible
 
 chmod 600 /home/vagrant/.ssh/id_rsa
+ssh-keyscan -H 192.168.51.4 >> ~/.ssh/known_hosts
+ssh-keyscan -H 192.168.51.6 >> ~/.ssh/known_hosts
 
 #cd ~/src
-#ssh-keyscan -H 192.168.52.4 >> ~/.ssh/known_hosts
-#ssh-keyscan -H 192.168.52.6 >> ~/.ssh/known_hosts
 #ansible-playbook -i hosts-dev playbook.yml
 
 #sudo su - hadoop
