@@ -36,3 +36,14 @@
     - {src: "mapred-site.xml", dest: "/usr/local/hadoop/etc/hadoop/mapred-site.xml"}
 
 - lineinfile: dest=/usr/local/hadoop/etc/hadoop/hadoop-env.sh regexp="^export JAVA_HOME" line="export JAVA_HOME=/usr/lib/jvm/java-8-oracle"
+
+- name: ensure hostkeys is a known host
+  lineinfile: 
+    dest=/home/{{ hadoop_user }}/.ssh/known_hosts
+    create=yes
+    state=present
+    line="{{ lookup('pipe', 'ssh-keyscan -t rsa '+item.hostname) }}"
+    regexp="^{{ item.hostname }}"
+    owner={{ hadoop_user }}
+    group={{ hadoop_group}}
+  with_items: "{{ nodes }}"
