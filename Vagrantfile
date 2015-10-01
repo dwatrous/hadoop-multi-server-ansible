@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
     master.vm.provider "virtualbox" do |v|
       v.name = "master"
       v.cpus = 2
-      v.memory = 2048
+      v.memory = 3072
     end
     # copy private key so hosts can ssh using key authentication (the script below sets permissions to 600)
     master.vm.provision :file do |file|
@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
     data1.vm.provider "virtualbox" do |v|
       v.name = "data1"
       v.cpus = 2
-      v.memory = 2048
+      v.memory = 3072
     end
     # copy private key so hosts can ssh using key authentication (the script below sets permissions to 600)
     data1.vm.provision :file do |file|
@@ -57,7 +57,7 @@ Vagrant.configure("2") do |config|
     data2.vm.provider "virtualbox" do |v|
       v.name = "data2"
       v.cpus = 2
-      v.memory = 2048
+      v.memory = 3072
     end
     # copy private key so hosts can ssh using key authentication (the script below sets permissions to 600)
     data2.vm.provision :file do |file|
