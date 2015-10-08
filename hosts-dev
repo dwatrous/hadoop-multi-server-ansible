@@ -4,3 +4,9 @@
 [hadoop-data]
 192.168.51.5              ansible_connection=ssh  ansible_ssh_user=vagrant   ansible_ssh_private_key_file=~/.ssh/id_rsa
 192.168.51.6              ansible_connection=ssh  ansible_ssh_user=vagrant   ansible_ssh_private_key_file=~/.ssh/id_rsa
+
+[hadoop-master:vars]
+nodesfile=nodes-dev
+
+[hadoop-data:vars]
+nodesfile=nodes-dev

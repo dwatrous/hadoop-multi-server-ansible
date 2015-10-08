@@ -3,11 +3,3 @@ proxy_env:
   #http_proxy: http://proxy.company.com:8080
   #https_proxy: https://proxy.company.com:8080
   none: false
-nodes:
-  - hostname: hadoop-master
-    ip: 192.168.51.4
-  - hostname: hadoop-data1
-    ip: 192.168.51.5
-  - hostname: hadoop-data2
-    ip: 192.168.51.6
-  
