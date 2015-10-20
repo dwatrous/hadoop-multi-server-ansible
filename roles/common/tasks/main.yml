@@ -1,11 +1,22 @@
 ---
+- include_vars: "{{ nodesfile }}"
+
 - group: name={{ hadoop_group}} state=present
 - user: name={{ hadoop_user }} comment="Hadoop" group={{ hadoop_group}} shell=/bin/bash
 
 - authorized_key: user={{ hadoop_user }} key="{{ lookup('file', '/home/vagrant/src/roles/common/templates/hadoop_rsa.pub') }}"
 
-- name: unpack hadoop
-  unarchive: src=/home/vagrant/src/roles/common/templates/hadoop-2.7.1.tar.gz dest=/usr/local owner={{ hadoop_user}} group={{ hadoop_group }} creates=/usr/local/hadoop
+# this is a bandwidth heavy task which downloads hadoop binaries to each node
+- name: Download hadoop
+  get_url: url={{ hadoop_download_url }} dest=/home/{{ hadoop_user }}/hadoop-2.7.1.tar.gz
+  environment: proxy_env
+
+- name: Extract hadoop archive
+  unarchive: src=/home/{{ hadoop_user }}/hadoop-2.7.1.tar.gz dest=/usr/local owner={{ hadoop_user}} group={{ hadoop_group }} creates=/usr/local/hadoop copy=no
+  
+# this is an alternative for the local deployment where the hadoop binary can be cached locally
+#- name: unpack hadoop
+#  unarchive: src=/home/vagrant/src/roles/common/templates/hadoop-2.7.1.tar.gz dest=/usr/local owner={{ hadoop_user}} group={{ hadoop_group }} creates=/usr/local/hadoop
 
 - command: mv /usr/local/hadoop-2.7.1 /usr/local/hadoop creates=/usr/local/hadoop removes=/usr/local/hadoop-2.7.1
 
@@ -36,14 +47,3 @@
     - {src: "mapred-site.xml", dest: "/usr/local/hadoop/etc/hadoop/mapred-site.xml"}
 
 - lineinfile: dest=/usr/local/hadoop/etc/hadoop/hadoop-env.sh regexp="^export JAVA_HOME" line="export JAVA_HOME=/usr/lib/jvm/java-8-oracle"
-
-- name: ensure hostkeys is a known host
-  lineinfile: 
-    dest=/home/{{ hadoop_user }}/.ssh/known_hosts
-    create=yes
-    state=present
-    line="{{ lookup('pipe', 'ssh-keyscan -t rsa '+item.hostname) }}"
-    regexp="^{{ item.hostname }}"
-    owner={{ hadoop_user }}
-    group={{ hadoop_group}}
-  with_items: "{{ nodes }}"
