@@ -1,4 +1,6 @@
 ---
+- include_vars: "{{ nodesfile }}"
+
 - name: Copy private key into place
   template: src=hadoop_rsa dest=/home/{{ hadoop_user }}/.ssh/hadoop_rsa owner={{ hadoop_user }} group={{ hadoop_group}} mode=0600
 
@@ -7,13 +9,13 @@
 
 - name: prepare known_hosts
   lineinfile: 
-    dest=/home/{{ ansible_user }}/.ssh/known_hosts
+    dest=/home/{{ hadoop_user }}/.ssh/known_hosts
     create=yes
     state=present
     line="{{ lookup('pipe', 'ssh-keyscan -t rsa '+item.ip) }}"
     regexp="^{{ item.ip }}"
-    owner={{ ansible_user }}
-    group={{ ansible_user }}
+    owner={{ hadoop_user }}
+    group={{ hadoop_group }}
   with_items: "{{ nodes }}"
   
 - name: add 0.0.0.0 to known_hosts for secondary namenode
