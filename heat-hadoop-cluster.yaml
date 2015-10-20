@@ -8,7 +8,7 @@ parameters:
   key_name:
     type: string
     description: Name of keypair to assign to servers
-    default: hosp-watrous-hpe
+    default: KEYPAIR
   image_id:
     type: string
     description: ID of image to use for servers
@@ -16,7 +16,7 @@ parameters:
   admin_user:
     type: string
     description: Username of admin user
-    default: ubuntu
+    default: ADMINUSER
   flavor:
     type: string
     description: Flavor to use for servers
@@ -79,6 +79,11 @@ resources:
           protocol: tcp
           port_range_min: 50075
           port_range_max: 50075
+        # update the following remote_ip_prefix to match the subnet of your private network
+        - remote_ip_prefix: 172.16.0.0/24
+          protocol: tcp
+          port_range_min: 1
+          port_range_max: 65535
         - remote_ip_prefix: 0.0.0.0/0
           protocol: tcp
           port_range_min: 8088
