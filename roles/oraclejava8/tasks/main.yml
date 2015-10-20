@@ -6,8 +6,10 @@
 
 - debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select' unseen=false
 
-- apt_key: keyserver=keyserver.ubuntu.com id=EEA14886
-  environment: proxy_env
+- name: Copy PGP key for Oracle into place
+  template: src=oracle-pgp-key dest=/home/{{ hadoop_user }}/.ssh/oracle-pgp-key owner={{ hadoop_user }} mode=0600
+
+- apt_key: file=/home/{{ hadoop_user }}/.ssh/oracle-pgp-key
 
 - name: Install Java
   apt: pkg=oracle-java8-installer state=installed update_cache=true
