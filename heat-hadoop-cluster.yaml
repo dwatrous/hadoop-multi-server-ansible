@@ -20,7 +20,7 @@ parameters:
   flavor:
     type: string
     description: Flavor to use for servers
-    default: m1.large
+    default: FLAVOR
   public_net_id:
     type: string
     description: >
