@@ -21,11 +21,11 @@ apt-get install -y libffi-dev libssl-dev
 #cd ~/src
 #source hadoop-Project-openrc.sh
 # update heat-hadoop-cluster.yaml
+#openstack keypair list
 #openstack image list
+#openstack flavor list
 #openstack network list
 #openstack security group list
-#openstack keypair list
-#openstack flavor list
 # update proxy details in group_vars/all
 # update remote user in playbook.yml
 # update ansible_ssh_(user|private_key_file) in heat-inventory.py
@@ -38,6 +38,8 @@ apt-get install -y libffi-dev libssl-dev
 ### End heat ###
 
 #ansible-playbook -i hosts-dev playbook.yml
+## --OR-- ##
+#ansible-playbook -i hosts-pro playbook.yml
 
 # for openstack, first login to the master before running the remaining commands
 #ssh -i ~/.ssh/hadoop.pem ubuntu@[hadoop_master_public_ip]
