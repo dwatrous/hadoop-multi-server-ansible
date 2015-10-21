@@ -9,7 +9,7 @@ sudo -E pip install ansible
 
 chmod 600 /home/vagrant/.ssh/id_rsa
 
-### heat is an orchestration option to provision in OpenStack ###
+### Use heat (an orchestration tool to provision in OpenStack) to prepare servers for Hadoop ###
 # create python virtualenv in ~/venv
 virtualenv venv
 chown -R vagrant:vagrant venv
@@ -17,7 +17,8 @@ chown -R vagrant:vagrant venv
 apt-get install -y libffi-dev libssl-dev
 /home/vagrant/venv/bin/pip install python-heatclient python-openstackclient pyopenssl ndg-httpsclient pyasn1
 # setup environment to connect to openstack using heat
-#source venv/bin/activate
+#source ~/venv/bin/activate
+#cd ~/src
 #source hadoop-Project-openrc.sh
 # update heat-hadoop-cluster.yaml
 #openstack image list
@@ -28,16 +29,18 @@ apt-get install -y libffi-dev libssl-dev
 # update proxy details in group_vars/all
 # update remote user in playbook.yml
 # update ansible_ssh_(user|private_key_file) in heat-inventory.py
-# update the subnet for your private network in heat-hadoop-cluster.yaml
-#neutron subnet-list
 #heat stack-create hadoop-stack -f heat-hadoop-cluster.yaml
 #heat output-show hadoop-stack hadoop_master_public_ip 2>&1 | grep -o '[^"]*'
-#cp hosp-watrous.pem ~/.ssh/
-#ssh -i ~/.ssh/hosp-watrous.pem ubuntu@[hadoop_master_public_ip]
+#cp hadoop.pem ~/.ssh/
+#chmod 600 ~/.ssh/hadoop.pem
 #python heat-inventory.py
+#source scan-node-keys.sh
+### End heat ###
 
-#cd ~/src
 #ansible-playbook -i hosts-dev playbook.yml
+
+# for openstack, first login to the master before running the remaining commands
+#ssh -i ~/.ssh/hadoop.pem ubuntu@[hadoop_master_public_ip]
 
 #sudo su - hadoop
 #hdfs namenode -format

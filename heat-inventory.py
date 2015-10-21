@@ -23,8 +23,8 @@ class heat_inventory:
     hadoop_datanode_private_key = "nodes_private_ips"
 
     # template values
-    ansible_ssh_user = "ubuntu"
-    ansible_ssh_private_key_file = "~/.ssh/keyfile.pem"
+    ansible_ssh_user = "debian"
+    ansible_ssh_private_key_file = "~/.ssh/hadoop.pem"
 
     # templates
     host_entry = Template('$ipaddress             ansible_connection=ssh  ansible_ssh_user=$ssh_user   ansible_ssh_private_key_file=$private_key_file')
@@ -46,6 +46,7 @@ nodesfile=nodes-pro""")
 nodes:
 $nodes
     """)
+    nodes_sshkeyscan = Template('ssh-keyscan -t rsa $ipaddress >> ~/.ssh/known_hosts')
 
     def __init__(self):
         self.load_heat_output()
@@ -102,6 +103,13 @@ $nodes
     def get_nodes_output(self):
         return self.nodes_section.substitute(nodes=self.get_nodes_entries())
 
+    def get_node_keyscan_script(self):
+        nodes = []
+        nodes.append(self.nodes_sshkeyscan.substitute(ipaddress=self.get_master_public_ip()))
+        for node in self.get_datanode_public_ips():
+            nodes.append(self.nodes_sshkeyscan.substitute(ipaddress=node[0]))
+        return "\n".join(nodes)
+
 def main():
     heat_inv = heat_inventory()
 ##    print "hadoop master public IP: " + heat_inv.get_master_public_ip()
@@ -114,6 +122,9 @@ def main():
     nodes_file.write(heat_inv.get_nodes_output())
     inventory_file.close()
     nodes_file.close()
+    keyscan_script_file = open('scan-node-keys.sh', 'w')
+    keyscan_script_file.write(heat_inv.get_node_keyscan_script())
+    keyscan_script_file.close()
 
 if __name__ == '__main__':
     main()
